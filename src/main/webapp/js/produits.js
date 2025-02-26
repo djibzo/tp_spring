@@ -2,7 +2,6 @@ $(document).ready(function () {
     loadProduits();
     function loadProduits() {
     $.get("/produits", function (produits) {
-    console.log(produits);
     $("#produitsTable").empty();
     produits.forEach(function (produit) {
     $("#produitsTable").append(`
@@ -14,7 +13,8 @@ $(document).ready(function () {
                                 <td>
                                     <button class="btn btn-warning btn-sm editBtn"
                                         data-id="${produit.id}"
-                                        data-nom="${produit.designation}"
+                                        data-designation="${produit.designation}"
+                                        data-reference="${produit.reference}"
                                         data-prix="${produit.prix}"
                                         data-quantite="${produit.quantite}">
                                         Modifier
@@ -35,7 +35,7 @@ $(document).ready(function () {
     reference: $("#reference").val(),
     prix: $("#prix").val(),
     quantite: $("#quantite").val()
-};
+    };
 
     if (id) {
     // Modification
@@ -86,7 +86,6 @@ $(document).ready(function () {
 });
 }
 });
-
     function resetForm() {
     $("#id").val("");
     $("#designation").val("");

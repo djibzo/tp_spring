@@ -1,46 +1,47 @@
 package com.fall.tp_spring.metier;
 
+import com.fall.tp_spring.dao.HashMapDAO;
 import com.fall.tp_spring.models.Produit;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-@Service("hashMapService")
-public class ProduitHashMapService implements IProduitService {
+@Service("hashmapService")
+public class HashMapProduitService implements IProduitService {
 
-    // Utilisation de HashMap pour stocker les produits
-    private final Map<String, Produit> produitsMap = new HashMap<>();
+    private final HashMapDAO produitDAO;
 
+    public HashMapProduitService(HashMapDAO produitDAO) {
+        this.produitDAO = produitDAO;
+    }
     @Override
     public void ajouterProduit(Produit produit) {
-
+        produitDAO.addProduit(produit);
     }
 
     @Override
     public void modifierProduit(Produit produit) {
-
+        produitDAO.updateProduit(produit);
     }
 
     @Override
     public void supprimerProduit(Long id) {
-
+        produitDAO.deleteProduit(id);
     }
 
     @Override
-    public Produit getProduitById(Long id) {
-        return null;
+    public Optional<Produit> getProduitById(Long id) {
+        return Optional.ofNullable(produitDAO.getProduitById(id));
     }
 
     @Override
     public List<Produit> getAllProduits() {
-        return null;
+        return produitDAO.getAllProduits();
     }
 
     @Override
     public List<Produit> rechercheProduit(String keyword) {
-        return null;
+        return produitDAO.searchProduits(keyword);
     }
 }
